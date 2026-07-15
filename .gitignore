@@ -1,0 +1,15 @@
+# Secrets
+.env
+
+# .NET
+back/**/bin/
+back/**/obj/
+back/**/*.user
+
+# Node
+front/node_modules/
+front/dist/
+
+# OS
+.DS_Store
+Thumbs.db

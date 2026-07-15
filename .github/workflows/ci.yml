@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    name: Backend — build & test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: ledgr_test
+          POSTGRES_USER: ledgr
+          POSTGRES_PASSWORD: ledgr
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ledgr -d ledgr_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    defaults:
+      run:
+        working-directory: back
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release
+
+      - name: Test
+        run: dotnet test --no-build -c Release --verbosity normal
+        env:
+          ConnectionStrings__Default: "Host=localhost;Database=ledgr_test;Username=ledgr;Password=ledgr"
+          Jwt__Secret: "ci-test-secret-must-be-at-least-32-chars-long"
+
+  frontend:
+    name: Frontend — build
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: front
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: front/package-lock.json
+
+      - name: Install
+        run: npm ci --legacy-peer-deps
+
+      - name: Build
+        run: npm run build -- --configuration production
+
+  docker:
+    name: Docker — compose build
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create .env
+        run: |
+          echo "POSTGRES_USER=ledgr" >> .env
+          echo "POSTGRES_PASSWORD=ci-password" >> .env
+          echo "JWT_SECRET=ci-test-secret-must-be-at-least-32-chars-long" >> .env
+
+      - name: Build images
+        run: docker compose build

@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Ledgr.Api/Ledgr.Api.csproj" />
+  <Project Path="Ledgr.Application/Ledgr.Application.csproj" />
+  <Project Path="Ledgr.Domain/Ledgr.Domain.csproj" />
+  <Project Path="Ledgr.Infrastructure/Ledgr.Infrastructure.csproj" />
+  <Project Path="Ledgr.Tests/Ledgr.Tests.csproj" />
+</Solution>
