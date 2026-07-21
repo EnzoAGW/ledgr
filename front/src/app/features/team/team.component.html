@@ -9,7 +9,7 @@
   @if (loading()) {
     <p style="color:rgba(255,255,255,.4)">Loading…</p>
   } @else {
-    <table mat-table [dataSource]="members()" style="width:100%;max-width:700px">
+    <table mat-table [dataSource]="paged()" style="width:100%;max-width:700px">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let m" style="font-weight:500">{{ m.name }}</td>
@@ -33,6 +33,13 @@
 
     @if (!members().length) {
       <p style="color:rgba(255,255,255,.4);margin-top:16px">No team members found.</p>
+    } @else {
+      <app-pagination
+        [length]="members().length"
+        [pageSize]="pageSize()"
+        [pageIndex]="pageIndex()"
+        (pageChange)="onPage($event)">
+      </app-pagination>
     }
   }
 </div>

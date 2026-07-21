@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY Ledgr.sln .
+COPY Ledgr.slnx .
 COPY Ledgr.Domain/Ledgr.Domain.csproj           Ledgr.Domain/
 COPY Ledgr.Application/Ledgr.Application.csproj Ledgr.Application/
 COPY Ledgr.Infrastructure/Ledgr.Infrastructure.csproj Ledgr.Infrastructure/

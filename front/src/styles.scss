@@ -30,7 +30,7 @@ html, body {
 
 .page {
   padding: 24px;
-  max-width: 1280px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -88,8 +88,12 @@ html, body {
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 12px;
   padding: 20px;
+  min-width: 0;
   h3 { margin: 0 0 16px; font-size: .875rem; font-weight: 600; color: rgba(255,255,255,.7); }
 }
+
+.legend-label-text, .legend-title, .legend-title-text { color: #fff !important; }
+.chart-card svg text { fill: #fff !important; }
 
 .mat-mdc-table { background: transparent !important; }
 .mat-mdc-row:hover .mat-mdc-cell { background: rgba(255,255,255,.03); }

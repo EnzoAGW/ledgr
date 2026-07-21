@@ -10,7 +10,7 @@
     <p style="color:rgba(255,255,255,.4)">Loading…</p>
   } @else {
     <div class="accounts-grid">
-      @for (a of accounts(); track a.id) {
+      @for (a of paged(); track a.id) {
         <div class="account-card">
           <div class="account-header">
             <mat-icon class="account-icon">{{ typeIcon(a.type) }}</mat-icon>
@@ -30,5 +30,14 @@
         <p style="color:rgba(255,255,255,.4)">No accounts yet.</p>
       }
     </div>
+
+    @if (accounts().length) {
+      <app-pagination
+        [length]="accounts().length"
+        [pageSize]="pageSize()"
+        [pageIndex]="pageIndex()"
+        (pageChange)="onPage($event)">
+      </app-pagination>
+    }
   }
 </div>

@@ -2,7 +2,6 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -11,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { PaginationComponent, SimplePageEvent } from '../../shared/pagination/pagination.component';
 import { TransactionService } from '../../core/services/transaction.service';
 import { AccountService } from '../../core/services/account.service';
 import { CategoryService } from '../../core/services/category.service';
@@ -23,9 +23,10 @@ import { CreateTransactionDialogComponent } from './create-transaction-dialog/cr
   selector: 'app-transactions',
   imports: [
     ReactiveFormsModule, DatePipe, DecimalPipe,
-    MatTableModule, MatPaginatorModule, MatFormFieldModule,
+    MatTableModule, MatFormFieldModule,
     MatInputModule, MatSelectModule, MatButtonModule,
     MatIconModule, MatDialogModule, MatMenuModule, MatSnackBarModule,
+    PaginationComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
@@ -45,7 +46,7 @@ export class TransactionsComponent implements OnInit {
   categories = signal<Category[]>([]);
 
   page = signal(0);
-  pageSize = signal(20);
+  pageSize = signal(10);
 
   columns = ['date', 'description', 'account', 'category', 'type', 'amount', 'status', 'actions'];
 
@@ -80,7 +81,7 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
-  onPage(e: PageEvent) {
+  onPage(e: SimplePageEvent) {
     this.page.set(e.pageIndex);
     this.pageSize.set(e.pageSize);
     this.load();

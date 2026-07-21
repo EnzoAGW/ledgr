@@ -23,7 +23,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddCors(opt =>
     opt.AddDefaultPolicy(p =>
-        p.WithOrigins("http://localhost:4200")
+        p.WithOrigins("http://localhost:4200", "http://localhost")
          .AllowAnyHeader()
          .AllowAnyMethod()));
 

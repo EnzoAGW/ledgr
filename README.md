@@ -1,5 +1,7 @@
 # ledgr
 
+[![CI](https://github.com/EnzoAGW/ledgr/actions/workflows/ci.yml/badge.svg)](https://github.com/EnzoAGW/ledgr/actions/workflows/ci.yml)
+
 B2B fintech dashboard for multi-tenant financial management. Organizations track accounts, transactions, and cash flow through a role-scoped interface with real-time KPIs and charts.
 
 ## Features
@@ -62,12 +64,14 @@ The API automatically runs EF Core migrations and seeds demo data on first start
 
 ### Demo accounts
 
-| Email                    | Password  | Role    | Org      |
-| ------------------------ | --------- | ------- | -------- |
-| admin@techcorp.com       | Admin@123 | Admin   | TechCorp |
-| manager@techcorp.com     | Admin@123 | Manager | TechCorp |
-| analyst@techcorp.com     | Admin@123 | Analyst | TechCorp |
-| admin@retailco.com       | Admin@123 | Admin   | RetailCo |
+| Email               | Password | Role    | Org      |
+| ------------------- | -------- | ------- | -------- |
+| alice@techcorp.dev  | admin123 | Admin   | TechCorp |
+| bruno@techcorp.dev  | mgr123   | Manager | TechCorp |
+| carla@techcorp.dev  | ana123   | Analyst | TechCorp |
+| diego@retailco.dev  | admin123 | Admin   | RetailCo |
+| elena@retailco.dev  | mgr123   | Manager | RetailCo |
+| fabio@retailco.dev  | ana123   | Analyst | RetailCo |
 
 ## Running locally (without Docker)
 
