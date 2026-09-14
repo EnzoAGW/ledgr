@@ -1,0 +1,43 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Accounts</h1>
+    <button mat-flat-button (click)="openCreate()">
+      <mat-icon>add</mat-icon> New Account
+    </button>
+  </div>
+
+  @if (loading()) {
+    <p style="color:rgba(255,255,255,.4)">Loading…</p>
+  } @else {
+    <div class="accounts-grid">
+      @for (a of paged(); track a.id) {
+        <div class="account-card">
+          <div class="account-header">
+            <mat-icon class="account-icon">{{ typeIcon(a.type) }}</mat-icon>
+            <div>
+              <div class="account-name">{{ a.name }}</div>
+              <div class="account-type">{{ a.type }}</div>
+            </div>
+          </div>
+          <div class="account-balance" [class.negative]="a.balance < 0">
+            {{ a.balance | number:'1.2-2' }}
+          </div>
+          <div class="balance-label">Current Balance (USD)</div>
+        </div>
+      }
+
+      @if (!accounts().length) {
+        <p style="color:rgba(255,255,255,.4)">No accounts yet.</p>
+      }
+    </div>
+
+    @if (accounts().length) {
+      <app-pagination
+        [length]="accounts().length"
+        [pageSize]="pageSize()"
+        [pageIndex]="pageIndex()"
+        (pageChange)="onPage($event)">
+      </app-pagination>
+    }
+  }
+</div>

@@ -1,0 +1,44 @@
+<mat-sidenav-container class="shell-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="brand">ledgr</div>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/transactions" routerLinkActive="active">
+        <mat-icon matListItemIcon>swap_horiz</mat-icon>
+        <span matListItemTitle>Transactions</span>
+      </a>
+      <a mat-list-item routerLink="/accounts" routerLinkActive="active">
+        <mat-icon matListItemIcon>account_balance</mat-icon>
+        <span matListItemTitle>Accounts</span>
+      </a>
+      <a mat-list-item routerLink="/categories" routerLinkActive="active">
+        <mat-icon matListItemIcon>label</mat-icon>
+        <span matListItemTitle>Categories</span>
+      </a>
+      @if (isAdmin()) {
+        <a mat-list-item routerLink="/team" routerLinkActive="active">
+          <mat-icon matListItemIcon>group</mat-icon>
+          <span matListItemTitle>Team</span>
+        </a>
+      }
+    </mat-nav-list>
+
+    <div class="sidenav-footer">
+      <div class="user-info">
+        <div class="user-name">{{ user()?.name }}</div>
+        <div class="user-role">{{ user()?.role }}</div>
+      </div>
+      <button mat-icon-button (click)="logout()" matTooltip="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

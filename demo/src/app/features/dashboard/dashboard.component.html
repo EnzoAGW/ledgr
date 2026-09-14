@@ -1,0 +1,61 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Dashboard</h1>
+  </div>
+
+  @if (loading()) {
+    <p style="color:rgba(255,255,255,.4)">Loading…</p>
+  } @else if (data()) {
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Income</div>
+        <div class="kpi-value income">{{ fmt(data()!.totalIncome) }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Expense</div>
+        <div class="kpi-value expense">{{ fmt(data()!.totalExpense) }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Balance</div>
+        <div class="kpi-value balance">{{ fmt(data()!.balance) }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pending</div>
+        <div class="kpi-value pending">{{ data()!.pendingCount }}</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>7-Day Volume</h3>
+        <ngx-charts-bar-vertical-2d
+          [results]="volumeChartData()"
+          [scheme]="colorScheme"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="true"
+          [legendPosition]="legendPos"
+          [gradient]="false"
+          [roundDomains]="true"
+          style="display:block;height:320px">
+        </ngx-charts-bar-vertical-2d>
+      </div>
+
+      <div class="chart-card">
+        <h3>Top Categories</h3>
+        @if (categoryChartData().length) {
+          <ngx-charts-bar-horizontal
+            [results]="categoryChartData()"
+            [scheme]="colorScheme"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            style="display:block;height:260px">
+          </ngx-charts-bar-horizontal>
+        } @else {
+          <p style="color:rgba(255,255,255,.3);margin:0">No expense categories yet.</p>
+        }
+      </div>
+    </div>
+  }
+</div>

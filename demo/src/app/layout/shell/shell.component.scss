@@ -1,0 +1,51 @@
+.shell-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+  background: #0a0a12;
+  border-right: 1px solid rgba(255,255,255,.07);
+  display: flex;
+  flex-direction: column;
+
+  .brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #a78bfa;
+    letter-spacing: -.03em;
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+
+  mat-nav-list { flex: 1; padding-top: 8px; }
+
+  a[mat-list-item] {
+    border-radius: 8px;
+    margin: 2px 8px;
+    color: rgba(255,255,255,.6);
+    transition: color .15s, background .15s;
+
+    &.active, &:hover {
+      background: rgba(167,139,250,.12);
+      color: #a78bfa;
+    }
+  }
+
+  .sidenav-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border-top: 1px solid rgba(255,255,255,.07);
+
+    .user-info { flex: 1; min-width: 0; }
+    .user-name { font-size: .875rem; font-weight: 500; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-role { font-size: .7rem; color: rgba(255,255,255,.4); text-transform: uppercase; }
+  }
+}
+
+.content {
+  background: #0d0d14;
+  overflow: auto;
+}

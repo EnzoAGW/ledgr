@@ -1,0 +1,38 @@
+:host { display: block; }
+
+.accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.account-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color .15s;
+
+  &:hover { border-color: rgba(167,139,250,.4); }
+
+  .account-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .account-icon { color: #a78bfa; font-size: 28px; width: 28px; height: 28px; }
+  .account-name { font-weight: 600; font-size: .95rem; }
+  .account-type { font-size: .75rem; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .05em; }
+
+  .account-balance {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #4ade80;
+    font-variant-numeric: tabular-nums;
+    &.negative { color: #f87171; }
+  }
+
+  .balance-label { font-size: .7rem; color: rgba(255,255,255,.35); margin-top: 4px; }
+}
