@@ -9,6 +9,12 @@ import { AsyncPipe } from '@angular/common';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { selectError, selectLoading } from '../../../store/auth/auth.selectors';
 
+export interface DemoAccount {
+  role: string;
+  email: string;
+  password: string;
+}
+
 @Component({
   selector: 'app-login',
   imports: [
@@ -25,10 +31,21 @@ export class LoginComponent {
   loading = this.store.selectSignal(selectLoading);
   error = this.store.selectSignal(selectError);
 
+  readonly demoAccounts: DemoAccount[] = [
+    { role: 'Admin', email: 'admin@ledgr.dev', password: 'Admin@123' },
+    { role: 'Manager', email: 'manager@ledgr.dev', password: 'Manager@123' },
+    { role: 'Analyst', email: 'analyst@ledgr.dev', password: 'Analyst@123' },
+  ];
+
   form = this.fb.group({
     email:    ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
+
+  useDemoAccount(account: DemoAccount) {
+    this.form.setValue({ email: account.email, password: account.password });
+    this.submit();
+  }
 
   submit() {
     if (this.form.invalid) return;
